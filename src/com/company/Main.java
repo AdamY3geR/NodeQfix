@@ -16,8 +16,14 @@ public class Main {
                                                                 new Node<Integer>(2,
                                                                         new Node<Integer>(4,
                                                                                 new Node<Integer>(19,
-                                                                                        new Node<Integer>(5)))))))))));
-        int x = 2;
+                                                                                        new Node<Integer>(5,
+                                                                                                new Node<Integer>(4,
+                                                                                                        new Node<Integer>(5,
+                                                                                                                new Node<Integer>(5,
+                                                                                                                        new Node<Integer>(5,
+                                                                                                                                new Node<Integer>(5,
+                                                                                                                                        new Node<Integer>(5)))))))))))))))));
+        int x = 5;
         System.out.println("there are "+numOfNums(chain)+" numbers in the Node chain"); //Q1
         System.out.println("the int x is in the Node chain? "+isNumInLst(x,chain)); //Q2
         System.out.println("the num x appear in the Node chain "+numOfAppearances(chain,x)+" times");
@@ -78,18 +84,15 @@ public class Main {
      * @return Integer for isXlist
      */
     public static int[] isXListChecker(Node<Integer> L, int x) {
-        int[] arr = new int[x];
-            for (int i = 1; i <= arr.length; i++) {
-                if (L.getValue() > x) {
-                    L = L.getNext();
-                    i = 1;
-                }
-                if (L.getValue() == (i)) {
-                    arr[i-1] = arr[i-1] + 1;
-                    L = L.getNext();
-                    i = 1;
-                }
+        int[] arr = new int[x+1];
+        while(L != null){
+            if (L.getValue() > x || L.getValue() < 0 || L.getValue()==arr[L.getValue()])
+                L = L.getNext();
+            else{
+                arr[L.getValue()]++;
+                L = L.getNext();
             }
+        }
         return arr;
     }
     /**
@@ -98,13 +101,11 @@ public class Main {
      */
     public static boolean isXList(int []arr1, int x){
         int count = 0;
-        for (int i = 0; i <= arr1.length; i++) {
-            if (arr1[i] == i+1)
+        for (int i = 0; i < x+1 ; i++) {
+            if (arr1[i]==i){
                 count++;
+            }
         }
-        if ((count)%x == 0 && count > 0)
-            return true;
-        else
-            return false;
+        return (count-1) % x == 0;
     }
 }
